@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	private int selectedZombiePosotion = 0;
+	public Text scoreText;
+	private int score;
+
 	public GameObject selectedZombie;
 	public List<GameObject> zombies;
 	public Vector3 selectedSize;
@@ -13,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		SelectZombie (selectedZombie);
+		scoreText.text = "Score " + score;
 
 	}
 	
@@ -63,5 +68,10 @@ public class GameManager : MonoBehaviour {
 	void PushUp() {
 		Rigidbody rb = selectedZombie.GetComponent<Rigidbody> ();
 		rb.AddForce (0, 0, 10, ForceMode.Impulse);
+	}
+
+	public void AddPoint() {
+		score = score + 1;
+		scoreText.text = "Score: " + score;
 	}
 }
