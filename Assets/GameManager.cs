@@ -23,35 +23,45 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown ("right")) {
-
+			GetZombieRight ();
 		}
 
 		if (Input.GetKeyDown ("up")) {
-
+			PushUp ();
 		}
 
 	}
 
 	void GetZombieLeft() {
 		if (selectedZombiePosotion == 0) {
+			selectedZombiePosotion = 3;
 			SelectZombie (zombies [3]);
 		} else {
-			GameObject newZombie = zombies[selectedZombiePosotion - 1];
+			selectedZombiePosotion = selectedZombiePosotion - 1;
+			GameObject newZombie = zombies[selectedZombiePosotion];
 			SelectZombie (newZombie);
 		}
 	}
 
 	void GetZombieRight() {
 		if (selectedZombiePosotion == 3) {
+			selectedZombiePosotion = 0;
 			SelectZombie (zombies [0]);
 		} else {
-			GameObject newZombie = zombies[selectedZombiePosotion + 1];
+			selectedZombiePosotion = selectedZombiePosotion + 1;
+			GameObject newZombie = zombies[selectedZombiePosotion];
 			SelectZombie (newZombie);
 		}
 	}
 
 	void SelectZombie(GameObject newZombie) {
+		selectedZombie.transform.localScale = defaultSize;
+		selectedZombie = newZombie;
 		newZombie.transform.localScale = selectedSize;
 	}
-}
 
+	void PushUp() {
+		Rigidbody rb = selectedZombie.GetComponent<Rigidbody> ();
+		rb.AddForce (0, 0, 10, ForceMode.Impulse);
+	}
+}
